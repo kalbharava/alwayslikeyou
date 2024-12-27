@@ -37,6 +37,32 @@
       z-index: 1;
     }
 
+    /* Balloons animation */
+    .balloons {
+      position: absolute;
+      top: 10%;
+      left: 5%;
+      z-index: 1;
+    }
+
+    .balloons img {
+      width: 100px;
+      position: absolute;
+      animation: floatBalloon 10s infinite;
+    }
+
+    .balloons img:nth-child(1) { left: 20%; animation-delay: 2s; }
+    .balloons img:nth-child(2) { left: 40%; animation-delay: 4s; }
+    .balloons img:nth-child(3) { left: 60%; animation-delay: 6s; }
+    .balloons img:nth-child(4) { left: 80%; animation-delay: 8s; }
+
+    @keyframes floatBalloon {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-100px); }
+      100% { transform: translateY(0); }
+    }
+
+    /* Birthday Card Styles */
     .card {
       width: 350px;
       height: 250px;
@@ -63,6 +89,7 @@
       transform: rotateY(180deg);
     }
 
+    /* Cake Animation (without image) */
     .cake-container {
       display: none;
       flex-direction: column;
@@ -72,15 +99,50 @@
       position: relative;
     }
 
-    .cake-container img {
-      width: 250px;
-      margin-top: 30px;
+    .cake {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      background-color: #FF6F61;
+      border-radius: 15px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
       animation: cakeEntrance 2s ease-out forwards;
+    }
+
+    .cake:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 100px;
+      height: 10px;
+      background-color: #FFD700;
+      border-radius: 50%;
+      animation: cakeCandles 1s ease-in-out infinite;
+      transform: translateX(-50%);
+    }
+
+    .cake:after {
+      content: "";
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      width: 100px;
+      height: 10px;
+      background-color: #FFD700;
+      border-radius: 50%;
+      animation: cakeCandles 1s ease-in-out infinite;
+      transform: translateX(-50%);
     }
 
     @keyframes cakeEntrance {
       0% { opacity: 0; transform: translateY(-50px); }
       100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes cakeCandles {
+      0% { opacity: 0.5; }
+      100% { opacity: 1; }
     }
 
     .message-container {
@@ -101,34 +163,6 @@
       color: #FF6F61;
       font-weight: 600;
       text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-    }
-
-    .cake-animation {
-      position: relative;
-      margin-top: 20px;
-      animation: cakeGlow 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes cakeGlow {
-      0% { opacity: 0.7; }
-      100% { opacity: 1; }
-    }
-
-    .cake-candles {
-      width: 40px;
-      height: 40px;
-      position: absolute;
-      top: 60px;
-      animation: candleGlow 1.5s infinite alternate;
-    }
-
-    .cake-candles:nth-child(1) { left: 40px; }
-    .cake-candles:nth-child(2) { left: 120px; }
-    .cake-candles:nth-child(3) { left: 200px; }
-
-    @keyframes candleGlow {
-      0% { opacity: 0.5; }
-      100% { opacity: 1; }
     }
 
     button {
@@ -173,14 +207,17 @@
       0% { transform: translateY(-100%); }
       100% { transform: translateY(100%); }
     }
-
-    .party-popper {
-      width: 100px;
-      margin-top: 20px;
-    }
   </style>
 </head>
 <body>
+
+  <!-- Balloons -->
+  <div class="balloons">
+    <img src="https://img.icons8.com/ios/50/000000/balloon.png" alt="Balloon">
+    <img src="https://img.icons8.com/ios/50/000000/balloon.png" alt="Balloon">
+    <img src="https://img.icons8.com/ios/50/000000/balloon.png" alt="Balloon">
+    <img src="https://img.icons8.com/ios/50/000000/balloon.png" alt="Balloon">
+  </div>
 
   <!-- Confetti Effect -->
   <div class="confetti">
@@ -199,12 +236,7 @@
 
   <!-- Cake Animation -->
   <div class="cake-container" id="cakeContainer">
-    <div class="cake-animation">
-      <img src="https://img.icons8.com/external-flat-juicy-fish/64/000000/external-cake-birthday-cake-flat-external-flat-juicy-fish.png" alt="Birthday Cake">
-      <div class="cake-candles" id="candle1"></div>
-      <div class="cake-candles" id="candle2"></div>
-      <div class="cake-candles" id="candle3"></div>
-    </div>
+    <div class="cake"></div>
     <button onclick="blowCandles()">Blow the Candles!</button>
   </div>
 
@@ -212,41 +244,24 @@
   <div class="message-container" id="messageContainer">
     <h2>🎉 Happy Birthday, Suhani! 🎉</h2>
     <p>Wishing you a magical day filled with love, joy, and unforgettable moments. May all your dreams come true. Enjoy every moment of your special day!</p>
-    <p>🎂 Date of Birth: 4th January 🎂</p>
-    <button onclick="showCake()">See Your Surprise!</button>
   </div>
 
-  <!-- Audio for Happy Birthday Song -->
-  <audio id="birthdaySong" autoplay loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
-  </audio>
+  <div class="blurred-background"></div>
 
   <script>
-    // Show cake and message after clicking on the birthday card
-    document.getElementById('birthdayCard').addEventListener('click', function() {
-      this.classList.add('open');
+    // Reveal Cake Animation
+    document.getElementById('birthdayCard').onclick = function() {
+      document.getElementById('birthdayCard').style.display = 'none';
+      document.getElementById('cakeContainer').style.display = 'flex';
       setTimeout(function() {
-        document.getElementById('cakeContainer').style.display = 'flex';
         document.getElementById('messageContainer').style.display = 'block';
-      }, 1000);
-    });
+      }, 2000); // Show the message after cake animation
+    };
 
-    // Blow candles animation
     function blowCandles() {
-      document.querySelectorAll('.cake-candles').forEach(function(candle) {
-        candle.style.animation = 'none';
-        setTimeout(function() {
-          candle.style.animation = 'candleGlow 1.5s infinite alternate';
-        }, 500);
-      });
-      document.getElementById('birthdaySong').pause(); // Pause song after blowing candles
-      alert('Candles blown! 🎂🎉');
-    }
-
-    // Show a surprise cake when button is clicked
-    function showCake() {
-      alert('Surprise! Enjoy your cake!');
+      alert('Candles Blown! 🎂 Wish granted!');
     }
   </script>
+
 </body>
 </html>
