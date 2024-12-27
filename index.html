@@ -18,6 +18,7 @@
       color: #2c3e50;
       text-align: center;
       animation: backgroundAnimation 15s ease-in-out infinite;
+      position: relative;
     }
 
     @keyframes backgroundAnimation {
@@ -37,7 +38,7 @@
       z-index: 1;
     }
 
-    /* Balloons animation */
+    /* Balloons */
     .balloons {
       position: absolute;
       top: 10%;
@@ -46,15 +47,15 @@
     }
 
     .balloons img {
-      width: 100px;
+      width: 120px;
       position: absolute;
       animation: floatBalloon 10s infinite;
     }
 
-    .balloons img:nth-child(1) { left: 20%; animation-delay: 2s; }
-    .balloons img:nth-child(2) { left: 40%; animation-delay: 4s; }
-    .balloons img:nth-child(3) { left: 60%; animation-delay: 6s; }
-    .balloons img:nth-child(4) { left: 80%; animation-delay: 8s; }
+    .balloons img:nth-child(1) { left: 5%; animation-delay: 1s; }
+    .balloons img:nth-child(2) { left: 30%; animation-delay: 2s; }
+    .balloons img:nth-child(3) { left: 50%; animation-delay: 3s; }
+    .balloons img:nth-child(4) { left: 75%; animation-delay: 4s; }
 
     @keyframes floatBalloon {
       0% { transform: translateY(0); }
@@ -62,19 +63,18 @@
       100% { transform: translateY(0); }
     }
 
-    /* Birthday Card Styles */
+    /* Card Styles */
     .card {
       width: 350px;
       height: 250px;
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.9);
       border: 3px solid #8E44AD;
       border-radius: 20px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
       cursor: pointer;
       transition: transform 1s ease-in-out;
       position: relative;
       z-index: 2;
-      text-transform: uppercase;
       font-weight: bold;
       letter-spacing: 2px;
       display: flex;
@@ -145,6 +145,7 @@
       100% { opacity: 1; }
     }
 
+    /* Birthday Message */
     .message-container {
       display: none;
       font-size: 20px;
@@ -183,7 +184,7 @@
       transform: scale(1.1);
     }
 
-    /* Floating Confetti Animation */
+    /* Floating Confetti */
     .confetti {
       position: absolute;
       top: 0;
@@ -207,6 +208,7 @@
       0% { transform: translateY(-100%); }
       100% { transform: translateY(100%); }
     }
+
   </style>
 </head>
 <body>
@@ -219,7 +221,7 @@
     <img src="https://img.icons8.com/ios/50/000000/balloon.png" alt="Balloon">
   </div>
 
-  <!-- Confetti Effect -->
+  <!-- Confetti -->
   <div class="confetti">
     <div style="animation-delay: 0s; left: 10%;"></div>
     <div style="animation-delay: 1s; left: 20%;"></div>
@@ -249,19 +251,19 @@
   <div class="blurred-background"></div>
 
   <script>
-    // Reveal Cake Animation
+    // Card click event to reveal cake and message
     document.getElementById('birthdayCard').onclick = function() {
       document.getElementById('birthdayCard').style.display = 'none';
       document.getElementById('cakeContainer').style.display = 'flex';
       setTimeout(function() {
         document.getElementById('messageContainer').style.display = 'block';
-      }, 2000); // Show the message after cake animation
+      }, 3000); // Show message after cake animation
     };
 
+    // Function to blow candles (show a cute message)
     function blowCandles() {
       alert('Candles Blown! 🎂 Wish granted!');
     }
   </script>
-
 </body>
 </html>
